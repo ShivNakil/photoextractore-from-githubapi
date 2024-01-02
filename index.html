@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="output.css" />
+</head>
+
+<body class="bg-slate-900 text-4xl text-white h-screen flex grid place-content-center items-center">
+  <h1 class="text-center">Extrected</h1>
+  <br />
+  <div class="input">
+    <form class="text-xl items-center text-center">
+      <label for="input">Paste link to extract info</label><br />
+      <input class="my-4 text-black text-sm" type="text" id="input" name="input" /><br />
+      <input id="submit" type="submit" value="Submit" />
+    </form>
+  </div>
+  <br>
+  <div class="flex h-36 place-content-center items-center">
+    <img id="image" class="h-32 w-auto items-center rounded-3xl" src="" alt="" />
+    <div class="p-5 text-xl" id="content"> followers = </div>
+  </div>
+</body>
+
+<script>
+  const form = document.querySelector("form")
+  let inputLink = document.querySelector("#input")
+  // let inputLink = "https://api.github.com/users/hiteshchoudhary"
+  let imagediv = document.querySelector("#image")
+  let contentdiv = document.querySelector("#content")
+  let xhr = new XMLHttpRequest()
+  let data
+  let followers
+  let avatar
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault()
+    xhr.open('GET', inputLink.value)
+    xhr.send()
+    // console.log(xhr)
+    // console.log(inputLink)
+  });
+
+  xhr.onreadystatechange = function () {
+    // console.log(xhr.readyState)
+    // console.log(inputLink.value)
+    // console.log("hi")
+    if (xhr.readyState === 4) {
+      // console.log("hi")
+      data = JSON.parse(this.responseText)
+      avatar = data.avatar_url
+      followers = data.followers
+      imagediv.src = avatar
+      console.log(imagediv.src)
+      contentdiv.innerHTML = `followers = ${followers}`
+    }
+  }
+
+  // imagediv.src = avatar
+  // console.log(imagediv.src)
+  // contentdiv.innerHTML = followers
+
+
+</script>
+
+</html>
